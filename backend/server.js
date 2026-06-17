@@ -35,10 +35,22 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Base route
-app.get('/', (req, res) => {
-  res.send('AetherSound Premium Headphones API is running...');
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve frontend static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
+  });
+} else {
+  // Base route
+  app.get('/', (req, res) => {
+    res.send('AetherSound Premium Headphones API is running...');
+  });
+}
 
 // Error handling
 app.use(notFound);

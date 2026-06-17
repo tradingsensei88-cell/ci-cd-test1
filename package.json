@@ -8,7 +8,9 @@
     "frontend": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "seed": "npm run seed --prefix backend",
-    "test": "echo \"No tests specified\""
+    "test": "echo \"No tests specified\"",
+    "build": "npm run build --prefix frontend",
+    "start": "pm2 start ecosystem.config.cjs --env production"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
